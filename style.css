@@ -1,0 +1,97 @@
+body {
+    min-width: 1280px;
+}
+
+#canvas {
+    border: black 1px solid;
+}
+
+#play_row {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-evenly;
+}
+
+#custom_array {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+}
+
+#canvas_with_play {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+}
+
+a {
+    white-space: nowrap;
+}
+
+.alg_desc {
+    width: 1200px;
+}
+
+.alg_desc_hidden {
+    display: none;
+}
+
+.roboto-mono {
+    font-family: 'Roboto Mono', monospace;
+}
+
+.roboto {
+    font-family: 'Roboto', sans-serif;
+}
+
+.background {
+    background-color: #f2f0e6;
+}
+
+.btn_alg {
+    border: 1px solid #495057;
+    color: #007bff;
+    cursor: pointer;
+    border-radius: 0px;
+}
+
+.btn_normal:hover {
+  color: #0056b3;
+}
+
+.btn.focus, .btn:focus {
+    outline: 0;
+    box-shadow: none;
+}
+
+.selected_btn_alg {
+    color: #FFFFFF;
+    background-color: #000000; 
+}
+
+.selected_btn_alg:hover {
+    color: #FFFFFF;
+    background-color: #000000;
+    cursor: default; 
+}
+
+.btn_play {
+    border: 1px solid #495057;
+    color: #000000;
+    cursor: pointer;
+}
+
+.btn_normal {
+  border: 1px solid #495057;
+  color: #007bff;
+  cursor: pointer;
+}
+
+.valid_custom_array {
+    color: #000000;
+}
+
+.invalid_custom_array {
+    color: #FF0000;
+}
+

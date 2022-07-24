@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <title>Sort Visualizer</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">      
+    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="utilities.js"></script>
+    <script src="quicksort.js"></script>
+    <script src="mergesort.js"></script>
+    <script src="heapsort.js"></script>
+    <script src="insertionsort.js"></script>
+    <script src="selectionsort.js"></script>
+    <script src="bubblesort.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href='style.css'>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body class="roboto-mono"> 
+<div class = "d-flex align-items-center" style="flex-flow: column nowrap;">
+    <div class = "row m-0 d-flex justify-content-center align-items-center">
+        <div class = "col">
+            <div class = "row d-flex justify-content-center align-items-center m-3">
+                <b>Sort Visualizer</b>
+            </div>
+            <div class = "row d-flex justify-content-center align-items-center mb-1">
+                <div class="btn-group btn-group-toggle" data-toggle="buttons" id="alg_select">
+                    <label class="btn btn_alg active selected_btn_alg alg ml-1 mr-1">
+                        <input type="radio" name="options" id="option1" autocomplete="off" value="quicksort" checked> Quick Sort
+                    </label>
+                    <label class="btn btn_alg alg ml-1 mr-1">
+                        <input type="radio" name="options" id="option2" autocomplete="off" value="mergesort"> Merge Sort
+                    </label>
+                    <label class="btn btn_alg alg ml-1 mr-1">
+                        <input type="radio" name="options" id="option3" autocomplete="off" value="heapsort"> Heap Sort
+                    </label>
+                    <label class="btn btn_alg alg ml-1 mr-1">
+                        <input type="radio" name="options" id="option3" autocomplete="off" value="insertionsort"> Insertion Sort
+                    </label>
+                    <label class="btn btn_alg alg ml-1 mr-1">
+                        <input type="radio" name="options" id="option3" autocomplete="off" value="selectionsort"> Selection Sort
+                    </label>
+                    <label class="btn btn_alg alg ml-1 mr-1">
+                        <input type="radio" name="options" id="option3" autocomplete="off" value="bubblesort"> Bubble Sort
+                    </label>                                                            
+                </div>
+            </div>
+        </div>  
+    </div>
+    <!--
+        TODO - MAKE ALL DESCS TAKE UP CONSTANT VERTICAL SPACE
+    -->
+    <div class = "mt-2 d-flex justify-content-center align-items-center" style="flex-basis: 170px;">
+        <div id = "quicksort_description" class = "alg_desc"><p>Quicksort is an efficient divide-and-conquer sorting algorithm. It works by selecting a "pivot" element from the current partition, then subdividing the current partition into two smaller partitions of elements less than the pivot and elements greater than or equal to the pivot. The pivot is then placed between these two partitions (the location where it would be in the fully sorted array). This process then repeats on each of the smaller partitions. (<a href="https://en.wikipedia.org/wiki/Quicksort">read more on Wikipedia</a>)<br><br>Quicksort is an <a href="https://en.wikipedia.org/wiki/In-place_algorithm">in-place<a> <a href="https://www.geeksforgeeks.org/stability-in-sorting-algorithms/">unstable sort</a> with an average performance of O(n log n) and a worst case performance of O(n^2). This implementation of Quicksort uses the <a href="https://en.wikipedia.org/wiki/Quicksort#Lomuto_partition_scheme">Lomuto partition scheme</a>.</p></div>
+
+
+        <div id = "mergesort_description" class = "alg_desc"><p>Mergesort is an efficient divide-and-conquer sorting algorithm. It works by repeatedly dividing an unsorted array into smaller partitions, bottoming out when each partition has at one element (and is therefore in-order). Each in-order partition is then "merged" with an adjacent in-order partition, resulting in a larger in-order partition. Eventually there is only one in-order partition, which is the sorted array. (<a href="https://en.wikipedia.org/wiki/Merge_sort">Read more on Wikipedia</a>)<br><br>Mergesort is a <a href="https://www.geeksforgeeks.org/stability-in-sorting-algorithms/">stable sort</a> with an average performance of O(n log n), and a worst case performance of O(n log n). It uses O(n) auxiliary memory.</p></div>
+
+        <div id = "heapsort_description" class = "alg_desc"><p>Heapsort is an efficient sorting algorithm. It works through two stages; in the first stage, the unsorted array is rearranged into a <a href="https://en.wikipedia.org/wiki/Heap_(data_structure)">binary heap</a>; in the second stage, the element at the top of the heap is repeatedly extracted.(<a href="https://en.wikipedia.org/wiki/Heapsort">Read more on Wikipedia</a>)<br><br>Heapsort is an <a href="https://en.wikipedia.org/wiki/In-place_algorithm">in-place<a> <a href="https://www.geeksforgeeks.org/stability-in-sorting-algorithms/">unstable sort</a> with an average performance of O(n log n) and a worst case performance of O(n log n).</p></div>
+
+        <div id = "insertionsort_description" class = "alg_desc"><p>Insertion Sort is a simple sorting algorithm. It works by maintaining a section of in-order elements as it iterates through the array, placing each new element within this in-order section.(<a href="https://en.wikipedia.org/wiki/Insertion_sort">Read more on Wikipedia</a>)<br><br>Insertion Sort is a <a href="https://en.wikipedia.org/wiki/In-place_algorithm">in-place</a> <a href="https://www.geeksforgeeks.org/stability-in-sorting-algorithms/">stable sort</a> with an average performance of O(n^2) and a worst case performance of O(n^2).</p></div>
+
+        <div id = "selectionsort_description" class = "alg_desc"><p>Selection Sort is a simple sorting algorithm. It works by building the sorted array one element at a time, as it repeatedly finds the minimum element among the remaining unsorted elements.(<a href="https://en.wikipedia.org/wiki/Selection_sort">Read more on Wikipedia</a>)<br><br>Selection Sort is a <a href="https://en.wikipedia.org/wiki/In-place_algorithm">in-place</a> <a href="https://www.geeksforgeeks.org/stability-in-sorting-algorithms/">stable sort</a> with an average performance of O(n^2) and a worst case performance of O(n^2).</p></div>
+
+
+        <div id = "bubblesort_description" class = "alg_desc"><p>Bubble Sort is a simple sorting algorithm. It works by making repeated passes through the array, swapping adjacent elements that are out of order, until all elements are in order.(<a href="https://en.wikipedia.org/wiki/Bubble_sort">Read more on Wikipedia</a>)<br><br>Bubble Sort is a <a href="https://en.wikipedia.org/wiki/In-place_algorithm">in-place</a> <a href="https://www.geeksforgeeks.org/stability-in-sorting-algorithms/">stable sort</a> with an average performance of O(n^2) and a worst case performance of O(n^2).</p></div>        
+
+
+    </div>
+    <div class = "row m-0 d-flex justify-content-center align-items-center">
+        <div id = "canvas_with_play">
+            <canvas id="canvas" width="1200" height="480" class="mb-1">
+            </canvas>
+            <div id = "play_row" class = "m-3">
+                <div class = "d-flex justify-content-center align-items-center">
+                    <button type="button" class="btn btn_normal m-2" id="randomize_button">Randomize Order</button>
+                </div>
+                <div class = "d-flex justify-content-center align-items-center">
+                    <button type="button" class="btn btn_play m-1 material-icons" id="goto_beginning_button">fast_rewind</button>            
+                    <button type="button" class="btn btn_play m-1 material-icons" id="step_backward_button">skip_previous</button>            
+                    <button type="button" class="btn btn_play m-1 material-icons" id="play_button">play_arrow</button>
+                    <button type="button" class="btn btn_play m-1 material-icons" id="step_forward_button">skip_next</button>
+                    <button type="button" class="btn btn_play m-1 material-icons" id="goto_end_button">fast_forward</button>
+                </div>
+                <div class = "d-flex justify-content-center align-items-center">
+                    <div class = "m-2">
+                        Speed
+                    </div>
+                    <div class = "m-2">
+                        <select class="custom-select" id="speed_dropdown">
+                            <option value=0.25>0.25x</option>
+                            <option value=0.5>0.5x</option>
+                            <option selected value=1>1x</option>
+                            <option value=1.5>1.5x</option>
+                            <option value=2>2x</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div id = "custom_array">
+                <div class = "row d-flex m-0" style="justify-content: space-between;">
+                    <textarea rows = "2" cols = "100" id="text_array"></textarea>
+                    <button id="customize_array_button" type="button" class = "btn btn_normal">Customize Values</button>
+                </div>
+                <div id = "custom_array_requirements" class = "row d-flex m-0 mt-2">Custom elements must be integers greater than or equal to 0 and less than 100.<br>Separate elements using commas only. Maximum length of 55 elements.</div>
+            </div>
+        </div>
+    </div>
+    <div class = "row d-flex justify-content-center align-items-center"><br><br><a href="https://github.com/patrickvando">github</a></div>     
+</div>
+</div>
+<script>
+// Name of the selected algorithm
+var current_algorithm;
+
+// Legend associated with the current algorithm
+var current_legend;
+
+// Each frame is a color-coded "step" in the algorithm
+var frames = [];
+var current_frame = -1;
+
+
+// Animation interval for the frames
+var play_interval = null;
+// Controls how fast the animation cycles through frames
+var speed = 100;
+
+var is_paused = true;
+
+// Limits for the display array
+var max_value = 99;
+var min_value = 0;
+var max_array_length = 55;
+
+// The display array; each element in the array is a value with a corresponding color code
+var original_array_length = 50;
+var original_array = null;
+
+function init(){
+    populate_original_array();
+    randomize_original_array();
+    current_algorithm = $("#alg_select :input:checked").attr("value");
+    run_algorithm();
+    display_current_frame();
+    update_text_input();
+}
+
+// Turn the values in the array into a comma separated list
+function array_to_text(){
+    var st = "";
+    for(var k = 0; k < original_array.length; k++){
+        var value, color;
+        [value, color] = original_array[k];
+        st += value + ", ";
+    }
+    if (st.length >= 2){
+        st = st.slice(0, -2);
+    }
+    return st;
+}
+
+// Update the input text box with the current display array values
+function update_text_input(){
+    var st = array_to_text();
+    $("#text_array").val(st);
+}
+
+// Change the display array to match the text in the input text box; default color for each value is black
+function text_to_array(){
+    var st = $("#text_array").val();
+    st = st.replace(/\s+/g, '');
+    invalids = st.match(/[^\d,]+/g);
+    if (invalids != null){
+        return [false, []];
+    }
+    st = st + ",";
+    var numbers = st.match(/[\d]+,/g);
+    if (numbers.length > max_array_length){
+        return [false, []];
+    }
+    var new_arr = [];
+    for (var k = 0; k < numbers.length; k++){
+        var number = numbers[k].match(/[\d]+/)[0];
+        number = parseInt(number);
+        if (number < 0 || number > max_value){
+            return [false, []];
+        }
+        new_arr.push([number, "#000000"]);
+    }
+    return [true, new_arr];
+}
+
+// Handle changes in the input text box for custom arrays
+function customize_array(){
+    var valid, custom_arr;
+    [valid, custom_arr] = text_to_array();
+
+    if (valid){
+        $("#custom_array_requirements").addClass("valid_custom_array");
+        $("#custom_array_requirements").removeClass("invalid_custom_array");
+        original_array = custom_arr;
+        pause();    
+        run_algorithm();
+        current_frame = 0;
+        display_current_frame();        
+    } else {
+        $("#custom_array_requirements").removeClass("valid_custom_array");
+        $("#custom_array_requirements").addClass("invalid_custom_array");
+    }
+}
+
+// Run the selected algorithm on the array
+function run_algorithm(){
+    $(".alg_desc").addClass("alg_desc_hidden");
+    if (current_algorithm == "quicksort"){
+        [frames, current_legend] = run_quicksort(original_array);
+        $("#quicksort_description").removeClass("alg_desc_hidden");
+    } else if(current_algorithm == "mergesort"){
+        [frames, current_legend] = run_mergesort(original_array);
+        $("#mergesort_description").removeClass("alg_desc_hidden");
+    } else if(current_algorithm == "heapsort"){
+        [frames, current_legend] = run_heapsort(original_array);
+        $("#heapsort_description").removeClass("alg_desc_hidden");
+    } else if(current_algorithm == "insertionsort"){
+        [frames, current_legend] = run_insertionsort(original_array);
+        $("#insertionsort_description").removeClass("alg_desc_hidden");
+    } else if(current_algorithm == "selectionsort"){
+        [frames, current_legend] = run_selectionsort(original_array);
+        $("#selectionsort_description").removeClass("alg_desc_hidden");
+    } else if(current_algorithm == "bubblesort"){
+        [frames, current_legend] = run_bubblesort(original_array);
+        $("#bubblesort_description").removeClass("alg_desc_hidden");
+    } else {
+        frames = []
+        for(var k = 0; k < 1; k++){
+            randomize_original_array();
+            frames.push(copy_array(original_array));        
+        }
+    }
+}
+
+// Create the default display array
+function populate_original_array(){
+    original_array = [];
+    for(var k = 0; k < original_array_length; k++){
+        value = Math.floor(Math.random() * (max_value+ 1)) + min_value;
+        original_array.push([value, "#000000"]);
+    }
+}
+
+// Randomize the display array
+function randomize_original_array(){
+    for(var k = 0; k < original_array.length; k++){
+        var rand_ind = Math.floor(Math.random() * (original_array.length - k) + k);
+        [original_array[k], original_array[rand_ind]] = [original_array[rand_ind], original_array[k]];
+    }
+}
+
+// Cycle through the "frames" of the animation
+function play(){
+    if (is_paused){
+        is_paused = false;
+        current_frame += 1;
+        display_current_frame();
+        play_interval = setInterval(function(){
+            current_frame += 1;
+            display_current_frame();
+        }, speed);
+        $("#play_button").html("pause");
+    }
+}
+
+// Pause the animation
+function pause(){
+    if (!is_paused){
+        is_paused = true;
+        clearInterval(play_interval);
+        $("#play_button").html("play_arrow");        
+    }
+}
+
+// Draw the current frame in the display array and the corresponding legend for the selected algorithm
+function display_current_frame(){
+    current_frame = Math.max(0, current_frame);
+    current_frame = Math.min(current_frame, frames.length - 1);
+    display_frame(frames[current_frame]);
+    display_legend();
+}
+
+// Draw the frame on the canvas
+function display_frame(frame){
+    var c = $("#canvas").get(0);
+    var ctx = c.getContext("2d");
+    ctx.clearRect(0, 0, c.width, c.height);
+    var bar_width = 10;
+    var bar_spacing = 10;
+    var start_x = (c.width - (frame.length * (bar_width + bar_spacing)) - bar_spacing) / 2;
+    var start_y = 50;
+    var font_size = 15;
+    var bar_size_multiplier = 2;
+    for(var k = 0; k < frame.length; k++){
+        var val, color;
+        [val, color] = frame[k];
+        ctx.fillStyle = color;
+        ctx.fillRect(start_x + (bar_width + bar_spacing) * k, c.height - start_y, bar_width, -val * bar_size_multiplier);
+        ctx.font = font_size + 'px Roboto Mono';
+        ctx.fillText(val, start_x + (bar_width + bar_spacing) * k, c.height - start_y + font_size);
+    }
+}
+
+// Draw the legend on the canvas
+function display_legend(){
+    var c = $("#canvas").get(0);
+    var ctx = c.getContext("2d");
+    var start_x = 95
+    var start_y = 50
+    var line_spacing = 10;
+    var block_size = 10;
+    var block_spacing = 5;
+    var font_size = 20;
+    var text, r, g, b;
+    [text, color] = current_legend[0];
+    ctx.font = font_size + "px Roboto Mono";
+    ctx.fillStyle = color;
+    ctx.fillText(text, start_x, start_y + font_size / 2);
+    for(var k = 1; k < current_legend.length; k++){
+        var text, color;
+        [text, color] = current_legend[k];
+        ctx.fillStyle = color;
+        ctx.fillRect(start_x, start_y + (font_size + line_spacing) * k, block_size, block_size);
+        ctx.font = font_size + 'px Roboto Mono';
+        ctx.fillText(text, start_x + block_size + block_spacing, start_y + (font_size + line_spacing) * k + font_size / 2);
+    }
+}
+
+// Toggle play/pause when play button is clicked
+$("#play_button").click(function(){
+    if (is_paused){
+        play();
+    } else {
+        pause();
+    }
+});
+
+// Step one frame forward in the animation; pause the animation if it is not already paused
+$("#step_forward_button").click(function(){
+    pause();
+    current_frame += 1;
+    display_current_frame();
+});
+
+
+// Step one frame backward in the animation; pause the animation if it is not already paused
+$("#step_backward_button").click(function(){
+    pause();
+    current_frame -= 1;
+    display_current_frame();
+});
+
+// Go to the first frame in the animation; pause the animation if it is not already paused
+$("#goto_beginning_button").click(function(){
+    pause();
+    current_frame = 0;
+    display_current_frame();    
+});
+
+// Go to the last frame in the animation; pause the animation if it is not already paused
+$("#goto_end_button").click(function(){
+    pause();
+    current_frame = frames.length;
+    display_current_frame(); 
+});
+
+// Randomize the display array when the randomized button is clicked
+$("#randomize_button").click(function(){
+    pause();
+    randomize_original_array();
+    run_algorithm();
+    current_frame = 0;
+    display_current_frame();
+    update_text_input();
+});
+
+// Change the speed of the animation when a different speed is selected from the dropdown
+$("#speed_dropdown").change(function(){
+    speed = 100 / $(this).children("option:selected").attr("value");
+    if(!is_paused){
+        pause();
+        play();
+    }
+});
+
+// Run the algorithm and display the first frame in the animation when the user selects a different algorithm
+$("#alg_select :input").click(function(){
+    if ($("#alg_select .btn").has(this).hasClass('selected_btn_alg')){
+        return;
+    }
+    $("#alg_select .btn").removeClass('selected_btn_alg');
+    $("#alg_select .btn").has(this).addClass('selected_btn_alg');
+    current_algorithm = $(this).attr("value");
+    pause();
+    run_algorithm();
+    current_frame = 0;
+    display_current_frame();
+});
+
+// Customize the array using the text box input when the user clicks the corresponding button
+$("#customize_array_button").click(function(){
+    customize_array();
+});
+
+// Preload font so it can be used on the canvas
+WebFont.load({
+    google: {families: ["Roboto Mono"]},
+    active: init
+});
+</script>       
+</body>
